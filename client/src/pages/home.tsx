@@ -5,18 +5,16 @@ import HomeScreen from "@/components/home/HomeScreen";
 import ARScannerScreen from "@/components/ar/ARScannerScreen";
 import ARRepairGuideScreen from "@/components/ar/ARRepairGuideScreen";
 import ApplianceSelectionModal from "@/components/modals/ApplianceSelectionModal";
-import { useAppContext } from "@/context/AppContext";
 
 export default function Home() {
-  const { 
-    showARScanner, 
-    showARGuide, 
-    showApplianceModal,
-    setShowARScanner, 
-    setShowARGuide,
-    setShowApplianceModal 
-  } = useAppContext();
-
+  // Local state instead of using AppContext
+  const [showARScanner, setShowARScanner] = useState(false);
+  const [showARGuide, setShowARGuide] = useState(false);
+  const [showApplianceModal, setShowApplianceModal] = useState(false);
+  const [currentApplianceId, setCurrentApplianceId] = useState<number | null>(null);
+  const [currentRepairId, setCurrentRepairId] = useState<number | null>(null);
+  const [currentStep, setCurrentStep] = useState(0);
+  
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const handleStartRepair = () => {

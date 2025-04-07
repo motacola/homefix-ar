@@ -30,7 +30,41 @@ export const DEFAULT_USER_SETTINGS = {
   SHOW_SAFETY_WARNINGS: true,
   USE_AR_WHEN_AVAILABLE: true,
   SOUND_ENABLED: true,
-  DOWNLOAD_GUIDES_WIFI_ONLY: true
+  DOWNLOAD_GUIDES_WIFI_ONLY: true,
+  THEME: 'light',
+  LANGUAGE: 'english',
+  CAMERA_RESOLUTION: 'high',
+  NOTIFICATIONS: true,
+  DATA_USAGE: 'balanced'
+};
+
+// Theme options
+export const THEME_OPTIONS = {
+  LIGHT: 'light',
+  DARK: 'dark',
+  SYSTEM: 'system'
+};
+
+// Languages
+export const LANGUAGE_OPTIONS = {
+  ENGLISH: 'english',
+  SPANISH: 'spanish',
+  FRENCH: 'french',
+  GERMAN: 'german'
+};
+
+// Camera resolution options
+export const CAMERA_RESOLUTION = {
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high'
+};
+
+// Data usage options
+export const DATA_USAGE = {
+  LOW: 'low',
+  BALANCED: 'balanced',
+  HIGH: 'high'
 };
 
 // API endpoints
