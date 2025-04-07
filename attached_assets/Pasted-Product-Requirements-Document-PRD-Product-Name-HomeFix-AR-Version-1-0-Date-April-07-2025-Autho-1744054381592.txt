@@ -1,0 +1,80 @@
+Product Requirements Document (PRD)
+Product Name: HomeFix AR
+Version: 1.0
+Date: April 07, 2025
+Author: Grok (xAI), guided by [Your Name]  
+
+1. Overview
+Purpose: HomeFix AR empowers users to repair household appliances using augmented reality (AR) guidance, aligning with the right-to-repair movement. The app identifies issues via AR, overlays step-by-step instructions, and connects users to parts suppliers.
+Target Audience: DIY homeowners, renters, and right-to-repair advocates aged 18-55, comfortable with iOS devices.
+Platform: iOS (developed in Replit using Swift or a web-based frontend with AR.js for initial prototyping).
+Objective: Reduce reliance on professional repairs, save money, and promote sustainable appliance use.
+
+2. Goals
+- Deliver intuitive AR-based repair guidance for common appliances (e.g., washing machines, refrigerators, microwaves).
+- Integrate with iFixit for credibility and community engagement.
+- Enable seamless part ordering within the app.
+- Achieve a 4.5+ star rating in the App Store within 6 months of launch.
+
+3. Key Features
+AR Appliance Recognition  
+- Users point their camera at an appliance; the app identifies make/model using ARKit and image recognition.
+- Displays appliance name and basic info (e.g., “GE Profile Refrigerator, 2018”).
+AR Repair Guidance  
+- Overlays step-by-step instructions on the appliance (e.g., “Remove these 3 screws” with highlighted markers).
+- Includes animations for complex steps (e.g., disassembling a motor).
+Diagnostic Mode  
+- Prompts users to input symptoms (e.g., “Fridge not cooling”) and suggests likely issues with AR visuals.
+Parts Marketplace  
+- Links to suppliers (e.g., iFixit, Amazon) with part compatibility confirmed via AR.
+iFixit Integration  
+- Pulls repair manuals and community tips; allows users to contribute fixes.
+Skill Level Adjustment  
+- Beginner mode: Extra safety tips (e.g., “Unplug first!”).  
+- Advanced mode: Technical details (e.g., voltage checks).
+Offline Mode  
+- Downloads repair guides for use without internet (post-initial setup).
+
+4. Technical Requirements
+- Development Environment: Replit (Swift for iOS native or HTML/CSS/JavaScript with AR.js for web prototype).
+- Dependencies: 
+  - ARKit (iOS native) or AR.js (web-based AR).
+  - iOS 16+ compatibility.
+  - API integrations: iFixit API (repair data), e-commerce APIs (parts).
+- Backend: Firebase or Replit Database for user data, cached guides, and analytics.
+- Performance: AR rendering at 30 FPS minimum on iPhone 12+.
+- Storage: Offline guides stored locally, ~50 MB per appliance.
+
+5. User Stories
+- As a DIY homeowner, I want to identify my broken dishwasher’s issue with AR so I can fix it without calling a technician.
+- As a renter, I want step-by-step AR instructions to repair my microwave safely and quickly.
+- As a right-to-repair advocate, I want to order parts directly from the app and share my fix with the iFixit community.
+
+6. Success Metrics
+- Usage: 10,000 active users within 3 months.
+- Engagement: 70% of users complete at least one repair guide.
+- Retention: 50% return rate for multiple repairs within 6 months.
+- Revenue: $5,000/month from premium subscriptions within year 1.
+
+7. Constraints
+- Limited appliance database at launch (start with 10 common models).
+- Replit’s resource limits may restrict full AR complexity—focus on lightweight prototype initially.
+- Requires iOS device with LiDAR for optimal AR (iPhone 12 Pro+).
+
+8. Assumptions
+- Users have basic DIY skills and an iOS device.
+- iFixit partnership is feasible for content sourcing.
+- Image recognition can reliably identify appliances with training data.
+
+9. Risks
+- Risk: AR accuracy fails on older or obscure appliances.
+- Mitigation: Manual model selection as fallback; expand database over time.
+- Risk: Replit’s web environment limits native iOS features.
+- Mitigation: Start with web AR prototype, pivot to Xcode later.
+
+10. Timeline (MVP)
+- Week 1-2: Setup Replit, basic UI, AR framework integration.
+- Week 3-4: Appliance recognition and static AR overlay for 3 models.
+- Week 5-6: Repair guide flow, iFixit API stub, parts link mockup.
+- Week 7: Testing, offline mode, and polish.
+- Launch: Week 8 (basic MVP).
