@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAppContext } from "@/context/AppContext";
 import { useARDetection } from "@/hooks/useARDetection";
+import { cleanupARResources } from "@/lib/arUtils";
 
 interface ARScannerScreenProps {
   onClose: () => void;
@@ -25,8 +26,16 @@ export default function ARScannerScreen({ onClose, onManualSelect }: ARScannerSc
     return () => {
       clearTimeout(timer);
       stopDetection();
+      cleanupARResources();
     };
   }, [startDetection, stopDetection, setShowARGuide, setShowARScanner]);
+
+  // Ensure proper cleanup when closing manually
+  const handleClose = () => {
+    stopDetection();
+    cleanupARResources();
+    onClose();
+  };
 
   return (
     <div className="fixed inset-0 bg-black z-40">
@@ -63,7 +72,7 @@ export default function ARScannerScreen({ onClose, onManualSelect }: ARScannerSc
         {/* AR interface elements */}
         <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center">
           <button 
-            onClick={onClose}
+            onClick={handleClose}
             className="bg-gray-900/70 rounded-full w-10 h-10 flex items-center justify-center text-white">
             <i className="fas fa-times"></i>
           </button>
