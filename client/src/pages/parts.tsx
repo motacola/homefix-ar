@@ -130,7 +130,7 @@ function PartCard({ part }: { part: any }) {
           <p className="text-sm text-gray-600 mb-2">{part.description}</p>
         </div>
         <div className="flex justify-between items-center mt-2">
-          <span className="text-lg font-bold">${part.price.toFixed(2)}</span>
+          <span className="text-lg font-bold">{part.price}</span>
           <button className="bg-primary-500 hover:bg-primary-600 text-white font-medium text-sm rounded-lg px-3 py-1">
             Add to Cart
           </button>
