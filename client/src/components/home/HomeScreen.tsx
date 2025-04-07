@@ -78,21 +78,21 @@ export default function HomeScreen({ onStartRepair }: HomeScreenProps) {
   return (
     <div className="min-h-full pb-20">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-primary-600 to-primary-700 text-white pt-8 pb-12 px-4 relative overflow-hidden">
+      <div className="bg-gradient-to-br from-blue-800 to-indigo-900 text-white pt-8 pb-12 px-4 relative overflow-hidden">
         <div className="container mx-auto relative z-10">
           {/* Stats Banner - Only show if user has repairs */}
           {repairCount > 0 && (
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-6 flex items-center justify-around">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 mb-6 flex items-center justify-around shadow-md">
               <div className="text-center">
                 <p className="text-2xl font-bold text-white">{repairCount}</p>
                 <p className="text-xs uppercase tracking-wide text-white">Repairs</p>
               </div>
-              <div className="h-8 w-px bg-white/20"></div>
+              <div className="h-8 w-px bg-white/30"></div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-white">${moneySaved}</p>
                 <p className="text-xs uppercase tracking-wide text-white">Saved</p>
               </div>
-              <div className="h-8 w-px bg-white/20"></div>
+              <div className="h-8 w-px bg-white/30"></div>
               <div className="text-center">
                 <p className="text-2xl font-bold text-white">3</p>
                 <p className="text-xs uppercase tracking-wide text-white">Devices</p>
@@ -107,11 +107,11 @@ export default function HomeScreen({ onStartRepair }: HomeScreenProps) {
           <form onSubmit={handleSearch} className="relative mb-8 max-w-md">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-white/60" />
+                <Search className="h-5 w-5 text-white/80" />
               </div>
               <input 
                 type="text" 
-                className="block w-full pl-10 pr-10 py-3 bg-white/10 border-0 backdrop-blur-sm placeholder-white/60 text-white rounded-lg focus:ring-2 focus:ring-white/30 focus:bg-white/20 focus:outline-none"
+                className="block w-full pl-10 pr-10 py-3 bg-white/20 border border-white/30 backdrop-blur-sm placeholder-white/80 text-white rounded-lg focus:ring-2 focus:ring-white/50 focus:bg-white/30 focus:outline-none shadow-sm"
                 placeholder="Search for appliances or repairs..." 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -119,7 +119,7 @@ export default function HomeScreen({ onStartRepair }: HomeScreenProps) {
               <button 
                 type="submit"
                 className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                <div className="h-7 w-7 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition">
+                <div className="h-7 w-7 rounded-full bg-white/30 flex items-center justify-center hover:bg-white/40 transition">
                   <Search className="h-3.5 w-3.5 text-white" />
                 </div>
               </button>
