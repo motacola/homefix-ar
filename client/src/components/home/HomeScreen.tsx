@@ -76,7 +76,7 @@ export default function HomeScreen({ onStartRepair }: HomeScreenProps) {
   };
 
   return (
-    <div className="min-h-full pb-16">
+    <div className="min-h-full pb-20">
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary-600 to-primary-700 text-white pt-8 pb-12 px-4 relative overflow-hidden">
         <div className="container mx-auto relative z-10">
@@ -84,23 +84,23 @@ export default function HomeScreen({ onStartRepair }: HomeScreenProps) {
           {repairCount > 0 && (
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 mb-6 flex items-center justify-around">
               <div className="text-center">
-                <p className="text-2xl font-bold">{repairCount}</p>
-                <p className="text-xs uppercase tracking-wide">Repairs</p>
+                <p className="text-2xl font-bold text-white">{repairCount}</p>
+                <p className="text-xs uppercase tracking-wide text-white">Repairs</p>
               </div>
               <div className="h-8 w-px bg-white/20"></div>
               <div className="text-center">
-                <p className="text-2xl font-bold">${moneySaved}</p>
-                <p className="text-xs uppercase tracking-wide">Saved</p>
+                <p className="text-2xl font-bold text-white">${moneySaved}</p>
+                <p className="text-xs uppercase tracking-wide text-white">Saved</p>
               </div>
               <div className="h-8 w-px bg-white/20"></div>
               <div className="text-center">
-                <p className="text-2xl font-bold">3</p>
-                <p className="text-xs uppercase tracking-wide">Devices</p>
+                <p className="text-2xl font-bold text-white">3</p>
+                <p className="text-xs uppercase tracking-wide text-white">Devices</p>
               </div>
             </div>
           )}
 
-          <h2 className="text-3xl md:text-4xl font-bold mb-3">Fix it yourself with AR guidance</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 text-white">Fix it yourself with AR guidance</h2>
           <p className="text-lg md:text-xl mb-8 text-white/90 max-w-xl">Save money and reduce waste with step-by-step repair assistance in augmented reality</p>
           
           {/* Search Box */}
