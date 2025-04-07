@@ -62,7 +62,11 @@ export default function Home() {
         {showARScanner && (
           <ARScannerScreen 
             onClose={handleCloseARScanner} 
-            onManualSelect={handleOpenApplianceSelection} 
+            onManualSelect={handleOpenApplianceSelection}
+            onDetectionComplete={() => {
+              setShowARScanner(false);
+              setShowARGuide(true);
+            }}
           />
         )}
 
@@ -73,7 +77,15 @@ export default function Home() {
 
         {/* Manual Appliance Selection Modal */}
         {showApplianceModal && (
-          <ApplianceSelectionModal onClose={handleCloseApplianceSelection} />
+          <ApplianceSelectionModal 
+            onClose={handleCloseApplianceSelection} 
+            onSelectAppliance={(applianceId) => {
+              setCurrentApplianceId(applianceId);
+              setShowApplianceModal(false);
+              setShowARScanner(false);
+              setShowARGuide(true);
+            }}
+          />
         )}
       </main>
 

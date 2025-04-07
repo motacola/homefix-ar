@@ -1,15 +1,18 @@
 import { useEffect } from "react";
-import { useAppContext } from "@/context/AppContext";
 import { useARDetection } from "@/hooks/useARDetection";
 import { cleanupARResources } from "@/lib/arUtils";
 
 interface ARScannerScreenProps {
   onClose: () => void;
   onManualSelect: () => void;
+  onDetectionComplete?: () => void;
 }
 
-export default function ARScannerScreen({ onClose, onManualSelect }: ARScannerScreenProps) {
-  const { setShowARGuide, setShowARScanner } = useAppContext();
+export default function ARScannerScreen({ 
+  onClose, 
+  onManualSelect, 
+  onDetectionComplete 
+}: ARScannerScreenProps) {
   const { startDetection, stopDetection, detectionStatus } = useARDetection();
 
   // Start AR detection when component mounts
@@ -23,9 +26,8 @@ export default function ARScannerScreen({ onClose, onManualSelect }: ARScannerSc
     // After 3 seconds of simulated detection (for demo purposes),
     // transition to the repair guide screen
     const timer = setTimeout(() => {
-      if (isMounted) {
-        setShowARScanner(false);
-        setShowARGuide(true);
+      if (isMounted && onDetectionComplete) {
+        onDetectionComplete();
       }
     }, 3000);
     
@@ -48,7 +50,7 @@ export default function ARScannerScreen({ onClose, onManualSelect }: ARScannerSc
         console.error("Error in camera cleanup:", error);
       }
     };
-  }, [startDetection, stopDetection, setShowARGuide, setShowARScanner]);
+  }, [startDetection, stopDetection, onDetectionComplete]);
 
   // Ensure proper cleanup when closing manually
   const handleClose = () => {

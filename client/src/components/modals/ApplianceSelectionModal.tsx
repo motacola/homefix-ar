@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useAppContext } from "@/context/AppContext";
 
 interface ApplianceSelectionModalProps {
   onClose: () => void;
+  onSelectAppliance?: (applianceId: number) => void;
 }
 
-export default function ApplianceSelectionModal({ onClose }: ApplianceSelectionModalProps) {
+export default function ApplianceSelectionModal({ onClose, onSelectAppliance }: ApplianceSelectionModalProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedApplianceId, setSelectedApplianceId] = useState<number | null>(null);
-  const { setShowARGuide, setShowARScanner, setShowApplianceModal } = useAppContext();
 
   // Fetch all appliances
-  const { data: appliances, isLoading } = useQuery({
+  const { data: appliances = [], isLoading } = useQuery<any[]>({
     queryKey: ['/api/appliances'],
   });
 
@@ -26,17 +25,17 @@ export default function ApplianceSelectionModal({ onClose }: ApplianceSelectionM
   };
 
   const handleContinue = () => {
-    // Close the modal and show the repair guide
-    setShowApplianceModal(false);
-    setShowARScanner(false);
-    setShowARGuide(true);
+    if (selectedApplianceId && onSelectAppliance) {
+      onSelectAppliance(selectedApplianceId);
+    }
+    onClose();
   };
 
   // Filter appliances by type
-  const washingMachines = appliances?.filter((a: any) => a.type === 'washing_machine') || [];
-  const refrigerators = appliances?.filter((a: any) => a.type === 'refrigerator') || [];
-  const dishwashers = appliances?.filter((a: any) => a.type === 'dishwasher') || [];
-  const microwaves = appliances?.filter((a: any) => a.type === 'microwave') || [];
+  const washingMachines = appliances.filter((a: any) => a.type === 'washing_machine') || [];
+  const refrigerators = appliances.filter((a: any) => a.type === 'refrigerator') || [];
+  const dishwashers = appliances.filter((a: any) => a.type === 'dishwasher') || [];
+  const microwaves = appliances.filter((a: any) => a.type === 'microwave') || [];
 
   return (
     <div className="fixed inset-0 bg-gray-900/80 z-50 flex items-center justify-center p-4">
