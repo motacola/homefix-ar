@@ -14,19 +14,39 @@ export default function ARScannerScreen({ onClose, onManualSelect }: ARScannerSc
 
   // Start AR detection when component mounts
   useEffect(() => {
-    startDetection();
+    let isMounted = true;
+    
+    if (isMounted) {
+      startDetection();
+    }
     
     // After 3 seconds of simulated detection (for demo purposes),
     // transition to the repair guide screen
     const timer = setTimeout(() => {
-      setShowARScanner(false);
-      setShowARGuide(true);
+      if (isMounted) {
+        setShowARScanner(false);
+        setShowARGuide(true);
+      }
     }, 3000);
     
+    // Thorough cleanup function when component unmounts
     return () => {
+      isMounted = false;
       clearTimeout(timer);
       stopDetection();
       cleanupARResources();
+      
+      // Additional direct camera cleanup
+      try {
+        navigator.mediaDevices.getUserMedia({ video: false, audio: false })
+          .then(stream => {
+            const tracks = stream.getTracks();
+            tracks.forEach(track => track.stop());
+          })
+          .catch(err => console.error("Error releasing camera:", err));
+      } catch (error) {
+        console.error("Error in camera cleanup:", error);
+      }
     };
   }, [startDetection, stopDetection, setShowARGuide, setShowARScanner]);
 
@@ -34,6 +54,19 @@ export default function ARScannerScreen({ onClose, onManualSelect }: ARScannerSc
   const handleClose = () => {
     stopDetection();
     cleanupARResources();
+    
+    // Additional explicit camera shutdown
+    try {
+      navigator.mediaDevices.getUserMedia({ video: false, audio: false })
+        .then(stream => {
+          const tracks = stream.getTracks();
+          tracks.forEach(track => track.stop());
+        })
+        .catch(err => console.error("Error releasing camera:", err));
+    } catch (error) {
+      console.error("Error in camera cleanup:", error);
+    }
+    
     onClose();
   };
 

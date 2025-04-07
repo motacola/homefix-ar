@@ -32,9 +32,29 @@ export function useARDetection() {
   }, []);
 
   const stopDetection = useCallback(() => {
-    // In a real implementation, this would stop the AR detection
-    // and clean up any resources
+    // Stop the AR detection and clean up resources
     setDetectionStatus('idle');
+    setDetectedAppliance(null);
+    
+    // This will be handled by cleanupARResources, but we'll add an additional check here
+    // to make sure all camera tracks are stopped
+    try {
+      const videoElements = document.querySelectorAll('video');
+      videoElements.forEach(video => {
+        if (video.srcObject) {
+          const stream = video.srcObject as MediaStream;
+          if (stream) {
+            const tracks = stream.getTracks();
+            tracks.forEach(track => {
+              track.stop();
+            });
+          }
+          video.srcObject = null;
+        }
+      });
+    } catch (error) {
+      console.error('Error stopping camera:', error);
+    }
   }, []);
 
   return {

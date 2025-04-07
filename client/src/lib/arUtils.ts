@@ -27,16 +27,42 @@ interface DetectionResult {
 
 /**
  * Initialize the AR scene with A-Frame and AR.js
- * In a real implementation, this would set up the AR camera and detection
+ * This sets up the AR camera and detection system
  */
 export async function initializeARScene(): Promise<void> {
-  return new Promise((resolve) => {
-    // In a real implementation, this would initialize AR.js and set up event listeners
-    // For demo purposes, we'll just wait a moment to simulate initialization
-    setTimeout(() => {
-      console.log('AR scene initialized');
-      resolve();
-    }, 1000);
+  return new Promise((resolve, reject) => {
+    try {
+      // Add a safety check to ensure the browser supports mediaDevices
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        console.error('Browser does not support camera access needed for AR');
+        reject(new Error('Browser does not support camera access needed for AR'));
+        return;
+      }
+      
+      // Request camera permission explicitly, using only video
+      navigator.mediaDevices.getUserMedia({ 
+        video: { 
+          facingMode: 'environment' // Prefer back camera if available
+        }, 
+        audio: false 
+      })
+      .then(() => {
+        console.log('Camera permission granted, AR scene initialized');
+        
+        // In a real implementation, this would initialize AR.js and set up event listeners
+        // For demo purposes, we'll just wait a moment to simulate initialization
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      })
+      .catch(error => {
+        console.error('Error accessing camera:', error);
+        reject(error);
+      });
+    } catch (error) {
+      console.error('Error initializing AR scene:', error);
+      reject(error);
+    }
   });
 }
 
@@ -97,11 +123,50 @@ export function highlightARMarker(markerId: string): void {
 
 /**
  * Clean up AR resources
- * In a real implementation, this would remove AR markers and clean up resources
+ * This properly removes AR markers and cleans up camera resources
  */
 export function cleanupARResources(): void {
-  // In a real implementation, this would remove A-Frame entities and clean up
   console.log('Cleaning up AR resources');
+  
+  // Get the AR scene element
+  const arScene = document.getElementById('ar-scene');
+  
+  // If the scene exists, handle cleanup
+  if (arScene) {
+    // Remove the scene completely to stop camera
+    if (arScene.parentNode) {
+      arScene.parentNode.removeChild(arScene);
+    }
+    
+    // Get all video elements that might be created by AR.js
+    const videoElements = document.querySelectorAll('video');
+    videoElements.forEach(video => {
+      // Stop all video tracks
+      if (video.srcObject) {
+        const stream = video.srcObject as MediaStream;
+        if (stream) {
+          const tracks = stream.getTracks();
+          tracks.forEach(track => {
+            track.stop(); // Stop each track
+          });
+        }
+        video.srcObject = null; // Clear the source
+      }
+      
+      // Remove the video element
+      if (video.parentNode) {
+        video.parentNode.removeChild(video);
+      }
+    });
+    
+    // Clean up canvas elements created by AR.js
+    const canvasElements = document.querySelectorAll('canvas');
+    canvasElements.forEach(canvas => {
+      if (canvas.parentNode && canvas.hasAttribute('data-aframe-canvas')) {
+        canvas.parentNode.removeChild(canvas);
+      }
+    });
+  }
 }
 
 /**
