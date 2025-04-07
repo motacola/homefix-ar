@@ -2,17 +2,17 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Header from "@/components/layout/Header";
 import BottomNavigation from "@/components/layout/BottomNavigation";
-import { useAppContext } from "@/context/AppContext";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RepairCard from "@/components/common/RepairCard";
+import { Link } from "wouter";
 
 export default function Profile() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const { setShowARScanner } = useAppContext();
   
   const handleScan = () => {
-    setShowARScanner(true);
+    // Redirect to home page for scanning functionality
+    window.location.href = "/";
   };
   
   const toggleUserMenu = () => {

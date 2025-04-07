@@ -149,10 +149,14 @@ export default function Header({ userMenuOpen, toggleUserMenu }: HeaderProps) {
             </li>
           </ul>
           <div className="border-t border-gray-200 mt-4 pt-4">
-            <button className="flex items-center w-full p-3 text-gray-700 hover:bg-gray-100 rounded-md">
+            <Link
+              href="/settings"
+              className={`flex items-center p-3 rounded-md ${location === '/settings' ? 'bg-primary-50 text-primary-600' : 'text-gray-700 hover:bg-gray-100'}`}
+              onClick={toggleSideMenu}
+            >
               <Cog className="h-5 w-5 mr-3" />
               <span>Settings</span>
-            </button>
+            </Link>
             <button className="flex items-center w-full p-3 text-red-600 hover:bg-red-50 rounded-md">
               <LogOut className="h-5 w-5 mr-3" />
               <span>Sign Out</span>
@@ -166,9 +170,21 @@ export default function Header({ userMenuOpen, toggleUserMenu }: HeaderProps) {
         ref={userDropdownRef}
         className={`${userMenuOpen ? 'block' : 'hidden'} absolute right-4 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10`}
       >
-        <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</Link>
+        <Link 
+          href="/profile" 
+          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          onClick={() => toggleUserMenu()}
+        >
+          Your Profile
+        </Link>
         <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Saved Repairs</a>
-        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+        <Link 
+          href="/settings" 
+          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+          onClick={() => toggleUserMenu()}
+        >
+          Settings
+        </Link>
         <div className="border-t border-gray-100"></div>
         <a href="#" className="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100">Sign Out</a>
       </div>

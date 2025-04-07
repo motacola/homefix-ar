@@ -6,6 +6,7 @@ import Home from "@/pages/home";
 import Explore from "@/pages/explore";
 import Parts from "@/pages/parts";
 import Profile from "@/pages/profile";
+import Settings from "@/pages/settings";
 import NotFound from "@/pages/not-found";
 import { useEffect, useState } from "react";
 import SplashScreen from "./components/home/SplashScreen";
@@ -18,6 +19,7 @@ function Router() {
       <Route path="/explore" component={Explore} />
       <Route path="/parts" component={Parts} />
       <Route path="/profile" component={Profile} />
+      <Route path="/settings" component={Settings} />
       <Route component={NotFound} />
     </Switch>
   );
